@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Price Prediction</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #172033
+    }
+
+    header {
+      background: #fff;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 18px #00000010;
+      position: sticky;
+      top: 0;
+      z-index: 99
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #1d4ed8
+    }
+
+    .logo i {
+      margin-right: 8px;
+      color: #2563eb
+    }
+
+    nav a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: #334155;
+      font-weight: 600
+    }
+
+    nav a:hover {
+      color: #2563eb
+    }
+
+    .hero {
+      padding: 70px 7%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff, #eaf2ff)
+    }
+
+    .hero h1 {
+      font-size: 54px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #0f172a
+    }
+
+    .hero h1 span {
+      color: #2563eb
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 30px
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 14px 25px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px #2563eb33
+    }
+
+    .btn:hover {
+      background: #1e40af
+    }
+
+    .btn.light {
+      background: #fff;
+      color: #2563eb;
+      border: 1px solid #dbeafe;
+      box-shadow: none;
+      margin-left: 10px
+    }
+
+    .hero-img {
+      background: #fff;
+      padding: 14px;
+      border-radius: 24px;
+      box-shadow: 0 18px 45px #00000018
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block
+    }
+
+    section {
+      padding: 65px 7%
+    }
+
+    .title {
+      text-align: center;
+      font-size: 36px;
+      color: #0f172a;
+      margin-bottom: 12px
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      max-width: 760px;
+      margin: 0 auto 38px;
+      line-height: 1.6
+    }
+
+    .about-box {
+      max-width: 950px;
+      margin: auto;
+      background: #fff;
+      padding: 34px;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px #00000010;
+      text-align: center;
+      color: #475569;
+      line-height: 1.8;
+      font-size: 17px
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px #00000010;
+      transition: .3s
+    }
+
+    .card:hover {
+      transform: translateY(-6px)
+    }
+
+    .card i {
+      font-size: 32px;
+      color: #2563eb;
+      margin-bottom: 16px
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #111827
+    }
+
+    .card p {
+      color: #64748b;
+      line-height: 1.6
+    }
+
+    .step {
+      width: 45px;
+      height: 45px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 16px
+    }
+
+    .predict-box {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px #00000012
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      background: #fff
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #2563eb18
+    }
+
+    textarea {
+      resize: none
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 18px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      display: none
+    }
+
+    .disclaimer {
+      margin-top: 18px;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fed7aa;
+      padding: 14px;
+      border-radius: 10px;
+      line-height: 1.5
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px
+    }
+
+    .contact-info,
+    form {
+      background: #fff;
+      border-radius: 20px;
+      padding: 34px;
+      box-shadow: 0 8px 25px #00000010
+    }
+
+    .contact-info h2 {
+      margin-bottom: 20px
+    }
+
+    .contact-info p {
+      margin: 18px 0;
+      color: #475569;
+      font-size: 17px
+    }
+
+    .contact-info i {
+      color: #2563eb;
+      margin-right: 10px
+    }
+
+    .whatsapp {
+      background: #22c55e
+    }
+
+    .whatsapp:hover {
+      background: #16a34a
+    }
+
+    footer {
+      text-align: center;
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 24px
+    }
+
+    @media(max-width:850px) {
+      nav {
+        display: none
+      }
+
+      .hero,
+      .contact {
+        grid-template-columns: 1fr
+      }
+
+      .hero h1 {
+        font-size: 38px
+      }
+
+      .grid3,
+      .form-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero-img img {
+        height: 280px
+      }
+
+      .btn.light {
+        margin-left: 0;
+        margin-top: 10px
+      }
+
+      .title {
+        font-size: 30px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo"><i class="fa-solid fa-car"></i>CarPredict</div>
+    <nav><a href="#home">Home</a><a href="#about">About</a><a href="#works">How It Works</a><a
+        href="#predict">Predict</a><a href="#contact">Contact</a></nav>
+  </header>
+  <section class="hero" id="home">
+    <div>
+      <h1>Car Price <span>Prediction</span> Website</h1>
+      <p>Estimate used car resale price quickly using car brand, model, year, fuel type, transmission, ownership,
+        location and kilometers driven.</p><a href="#predict" class="btn">Predict Price</a><a href="#contact"
+        class="btn light">Send Enquiry</a>
+    </div>
+    <div class="hero-img"><img
+        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80" alt="Car">
+    </div>
+  </section>
+  <section id="about">
+    <h2 class="title">About Project</h2>
+    <p class="subtitle">A clean and professional college project for used car price estimation.</p>
+    <div class="about-box">This website helps users estimate the resale value of a used car by entering basic vehicle
+      details. It includes a simple prediction form, responsive design, validation, disclaimer and WhatsApp enquiry
+      option.</div>
+  </section>
+  <section>
+    <h2 class="title">Features</h2>
+    <div class="grid3">
+      <div class="card"><i class="fa-solid fa-calculator"></i>
+        <h3>Price Estimation</h3>
+        <p>Calculates estimated resale price based on important car details.</p>
+      </div>
+      <div class="card"><i class="fa-solid fa-bolt"></i>
+        <h3>Instant Result</h3>
+        <p>Shows the estimated price immediately after submitting details.</p>
+      </div>
+      <div class="card"><i class="fa-brands fa-whatsapp"></i>
+        <h3>WhatsApp Enquiry</h3>
+        <p>Sends enquiry details directly through WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+  <section id="works">
+    <h2 class="title">How It Works</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="step">1</div>
+        <h3>Enter Details</h3>
+        <p>Fill car brand, model, year, kilometers, fuel and owner type.</p>
+      </div>
+      <div class="card">
+        <div class="step">2</div>
+        <h3>Calculate</h3>
+        <p>The system applies estimation logic using entered values.</p>
+      </div>
+      <div class="card">
+        <div class="step">3</div>
+        <h3>Get Price</h3>
+        <p>Estimated resale price is displayed instantly.</p>
+      </div>
+    </div>
+  </section>
+  <section id="predict">
+    <h2 class="title">Predict Your Car Price</h2>
+    <p class="subtitle">Fill all details below to get estimated resale value.</p>
+    <div class="predict-box">
+      <div class="form-grid"><input id="brand" placeholder="Car Brand e.g. Hyundai"><input id="model"
+          placeholder="Car Model e.g. i20"><input id="year" type="number" placeholder="Manufacturing Year"><input
+          id="km" type="number" placeholder="Kilometers Driven"><select id="fuel">
+          <option value="">Fuel Type</option>
+          <option value="petrol">Petrol</option>
+          <option value="diesel">Diesel</option>
+          <option value="cng">CNG</option>
+          <option value="electric">Electric</option>
+        </select><select id="transmission">
+          <option value="">Transmission</option>
+          <option value="manual">Manual</option>
+          <option value="automatic">Automatic</option>
+        </select><select id="owner">
+          <option value="">Owner Type</option>
+          <option value="1">First Owner</option>
+          <option value="2">Second Owner</option>
+          <option value="3">Third Owner</option>
+        </select><input id="location" placeholder="Location e.g. Pune"><input id="price" type="number"
+          placeholder="Original Price in ₹"></div><br><button class="btn" onclick="predictPrice()">Calculate Estimated
+        Price</button>
+      <div class="result" id="result"></div>
+      <div class="disclaimer"><b>Disclaimer:</b> This is an estimated price for project purpose only. Actual market
+        price may vary.</div>
+    </div>
+  </section>
+  <section id="contact">
+    <h2 class="title">Contact & Enquiry</h2>
+    <div class="contact">
+      <div class="contact-info">
+        <h2>Contact Details</h2>
+        <p><i class="fa-solid fa-phone"></i> +91 82619 08472</p>
+        <p><i class="fa-solid fa-envelope"></i> shreyanagtilak98@gmail.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> India</p>
+      </div>
+      <form onsubmit="sendEnquiry(event)"><input placeholder="Your Name" required><br><br><input
+          placeholder="Your Phone" required><br><br><input type="email" placeholder="Your Email"
+          required><br><br><textarea rows="5" placeholder="Your Enquiry" required></textarea><br><br><button
+          class="btn whatsapp"><i class="fa-brands fa-whatsapp"></i> Send on WhatsApp</button></form>
+    </div>
+  </section>
+  <footer>© 2026 CarPredict | Car Price Prediction Project</footer>
+  <script>
+    function predictPrice() { const brand = document.getElementById('brand').value.trim(), model = document.getElementById('model').value.trim(), year = +document.getElementById('year').value, km = +document.getElementById('km').value, original = +document.getElementById('price').value, fuel = document.getElementById('fuel').value, transmission = document.getElementById('transmission').value, owner = +document.getElementById('owner').value, location = document.getElementById('location').value.trim(), currentYear = new Date().getFullYear(); if (!brand || !model || !year || !km || !original || !fuel || !transmission || !owner || !location) { alert('Please fill all prediction details'); return } if (year < 1990 || year > currentYear) { alert('Please enter a valid manufacturing year'); return } if (km < 0 || original < 50000) { alert('Please enter valid kilometers and original price'); return } const age = currentYear - year; let value = original - (age * original * 0.07) - (km * 2) - (owner - 1) * 35000; if (fuel === 'diesel') value += 25000; if (fuel === 'electric') value += 60000; if (fuel === 'cng') value += 15000; if (transmission === 'automatic') value += 30000; value = Math.max(value, 50000); document.getElementById('result').style.display = 'block'; document.getElementById('result').innerText = 'Estimated Price for ' + brand + ' ' + model + ': ₹ ' + Math.round(value).toLocaleString('en-IN') }
+    function sendEnquiry(e) { e.preventDefault(); const inputs = e.target.querySelectorAll('input, textarea'); const name = inputs[0].value, phone = inputs[1].value, email = inputs[2].value, message = inputs[3].value; const whatsappMessage = `Hello, I want to enquire about Car Price Prediction.%0A%0AName: ${name}%0APhone: ${phone}%0AEmail: ${email}%0AMessage: ${message}`; window.open(`https://wa.me/918261908472?text=${whatsappMessage}`, '_blank') }
+  </script>
+</body>
+
+</html>
